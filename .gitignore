@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+data/
+drizzle/
+.env.local
+.env*.local
+*.db
+*.db-journal
+dist/
