@@ -1,19 +1,43 @@
-import {
-  pgTable,
-  text,
-  integer,
-  real,
-} from "drizzle-orm/pg-core";
+import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 
-export const users = pgTable("users", {
+export const users = sqliteTable("users", {
   id: text("id").primaryKey(),
   name: text("name"),
   email: text("email").unique().notNull(),
+  emailVerified: text("email_verified"),
   image: text("image"),
   createdAt: text("created_at").notNull().default("CURRENT_TIMESTAMP"),
 });
 
-export const designs = pgTable("designs", {
+export const accounts = sqliteTable("accounts", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  type: text("type").notNull(),
+  provider: text("provider").notNull(),
+  providerAccountId: text("provider_account_id").notNull(),
+  refreshToken: text("refresh_token"),
+  accessToken: text("access_token"),
+  expiresAt: integer("expires_at"),
+  tokenType: text("token_type"),
+  scope: text("scope"),
+  idToken: text("id_token"),
+  sessionState: text("session_state"),
+});
+
+export const sessions = sqliteTable("sessions", {
+  id: text("id").primaryKey(),
+  sessionToken: text("session_token").unique().notNull(),
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  expires: text("expires").notNull(),
+});
+
+export const verificationTokens = sqliteTable("verification_tokens", {
+  identifier: text("identifier").notNull(),
+  token: text("token").notNull(),
+  expires: text("expires").notNull(),
+});
+
+export const designs = sqliteTable("designs", {
   id: text("id").primaryKey(),
   userId: text("user_id").notNull().references(() => users.id),
   name: text("name").notNull().default("Untitled Design"),
@@ -25,7 +49,7 @@ export const designs = pgTable("designs", {
   updatedAt: text("updated_at").notNull().default("CURRENT_TIMESTAMP"),
 });
 
-export const templates = pgTable("templates", {
+export const templates = sqliteTable("templates", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   category: text("category").notNull(),

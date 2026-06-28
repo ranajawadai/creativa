@@ -2,17 +2,35 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { X, Layout, Presentation, Image, FileText, Command, Shapes, PanelsTopLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const templates = [
-  { id: "social-instagram", name: "Instagram Post", category: "Social", thumbnail: null },
-  { id: "social-facebook", name: "Facebook Cover", category: "Social", thumbnail: null },
-  { id: "presentation", name: "Presentation", category: "Business", thumbnail: null },
-  { id: "flyer", name: "Flyer", category: "Marketing", thumbnail: null },
-  { id: "logo", name: "Logo", category: "Brand", thumbnail: null },
-  { id: "banner", name: "Banner", category: "Marketing", thumbnail: null },
-  { id: "card", name: "Business Card", category: "Brand", thumbnail: null },
-  { id: "poster", name: "Poster", category: "Marketing", thumbnail: null },
+const templateCategories = [
+  {
+    name: "Social Media",
+    templates: [
+      { id: "social-instagram", name: "Instagram Post", icon: Image },
+      { id: "social-facebook", name: "Facebook Cover", icon: Image },
+      { id: "social-twitter", name: "Twitter Header", icon: Image },
+      { id: "social-linkedin", name: "LinkedIn Banner", icon: Image },
+    ],
+  },
+  {
+    name: "Marketing",
+    templates: [
+      { id: "mkt-flyer", name: "Flyer", icon: FileText },
+      { id: "mkt-banner", name: "Web Banner", icon: PanelsTopLeft },
+      { id: "mkt-poster", name: "Poster", icon: Layout },
+      { id: "mkt-presentation", name: "Presentation", icon: Presentation },
+    ],
+  },
+  {
+    name: "Brand",
+    templates: [
+      { id: "brand-logo", name: "Logo", icon: Command },
+      { id: "brand-card", name: "Business Card", icon: Shapes },
+    ],
+  },
 ];
 
 interface TemplateGalleryProps {
@@ -29,33 +47,43 @@ export function TemplateGallery({ onSelect, open, onClose }: TemplateGalleryProp
       <div className="bg-background rounded-2xl border border-border shadow-2xl w-full max-w-3xl max-h-[80vh] overflow-hidden flex flex-col">
         <div className="flex items-center justify-between px-6 py-4 border-b border-border">
           <h2 className="text-lg font-heading font-semibold">Choose a Template</h2>
-          <Button variant="ghost" size="sm" onClick={onClose}>
-            ✕
+          <Button variant="ghost" size="sm" onClick={onClose} aria-label="Close">
+            <X size={16} />
           </Button>
         </div>
         <div className="flex-1 overflow-y-auto p-6">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {templates.map((template) => (
-              <Card
-                key={template.id}
-                className="cursor-pointer hover:border-primary transition-colors duration-200"
-                onClick={() => {
-                  onSelect(template.id);
-                  onClose();
-                }}
-              >
-                <CardContent className="p-0">
-                  <div className="aspect-[4/3] bg-surface-alt rounded-t-xl flex items-center justify-center text-muted text-sm">
-                    {template.name.charAt(0)}
-                  </div>
-                  <div className="p-3">
-                    <p className="text-sm font-medium truncate">{template.name}</p>
-                    <p className="text-xs text-muted">{template.category}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          {templateCategories.map((cat) => (
+            <div key={cat.name} className="mb-8 last:mb-0">
+              <h3 className="text-xs font-semibold text-muted uppercase tracking-wider mb-3">
+                {cat.name}
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {cat.templates.map((t) => {
+                  const Icon = t.icon;
+                  return (
+                    <Card
+                      key={t.id}
+                      className="cursor-pointer hover:border-primary hover:shadow-md transition-all duration-200"
+                      onClick={() => {
+                        onSelect(t.id);
+                        onClose();
+                      }}
+                    >
+                      <CardContent className="p-0">
+                        <div className="aspect-[4/3] bg-surface-alt rounded-t-xl flex items-center justify-center">
+                          <Icon size={32} className="text-muted" />
+                        </div>
+                        <div className="p-3">
+                          <p className="text-sm font-medium truncate">{t.name}</p>
+                          <p className="text-xs text-muted">{cat.name}</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

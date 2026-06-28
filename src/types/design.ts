@@ -1,3 +1,20 @@
+export type ToolType = "select" | "text" | "shape" | "image" | "line" | "draw";
+
+export type ShapeType = "rect" | "circle" | "triangle" | "diamond";
+
+export interface EditorState {
+  tool: ToolType;
+  shapeType: ShapeType;
+  fillColor: string;
+  strokeColor: string;
+  strokeWidth: number;
+  fontSize: number;
+  fontFamily: string;
+  opacity: number;
+  bold: boolean;
+  italic: boolean;
+}
+
 export interface Design {
   id: string;
   name: string;
@@ -20,14 +37,11 @@ export interface DesignTemplate {
   thumbnail: string;
 }
 
-export type ToolType = "select" | "text" | "shape" | "image" | "line" | "draw";
-
-export interface EditorState {
-  tool: ToolType;
-  fillColor: string;
-  strokeColor: string;
-  strokeWidth: number;
-  fontSize: number;
-  fontFamily: string;
-  opacity: number;
+export interface LayerInfo {
+  id: string;
+  name: string;
+  type: string;
+  visible: boolean;
+  locked: boolean;
+  index: number;
 }

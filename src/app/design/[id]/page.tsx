@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 
 export default function DesignPage() {
   const params = useParams();
-  const designId = params.id;
+  const designId = params.id as string;
 
-  return <Editor />;
+  return <Editor designId={designId} />;
 }
