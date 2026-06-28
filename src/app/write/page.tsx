@@ -1,14 +1,15 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Plus, FileText } from "lucide-react";
 
-const recentDesigns = [
-  { id: "1", name: "Social Media Banner", updated: "2 hours ago", thumbnail: null },
-  { id: "2", name: "Product Presentation", updated: "Yesterday", thumbnail: null },
-  { id: "3", name: "Instagram Story", updated: "3 days ago", thumbnail: null },
+const recentDocs = [
+  { id: "1", title: "Blog Post - AI Trends 2026", updated: "1 hour ago" },
+  { id: "2", title: "Product Description", updated: "Yesterday" },
+  { id: "3", title: "Weekly Newsletter", updated: "3 days ago" },
 ];
 
-export default function DashboardPage() {
+export default function DocumentsPage() {
   return (
     <div className="min-h-screen bg-surface">
       <div className="border-b border-border bg-background">
@@ -22,10 +23,14 @@ export default function DashboardPage() {
             </Link>
           </div>
           <div className="flex items-center gap-3">
-            <Link href="/write"><Button variant="ghost" size="sm">Write</Button></Link>
-            <Link href="/media"><Button variant="ghost" size="sm">Media</Button></Link>
-            <Link href="/design/new">
-              <Button>New Design</Button>
+            <Link href="/dashboard">
+              <Button variant="ghost" size="sm">Designs</Button>
+            </Link>
+            <Link href="/write/new">
+              <Button size="sm">
+                <Plus size={14} />
+                New Document
+              </Button>
             </Link>
           </div>
         </div>
@@ -34,30 +39,35 @@ export default function DashboardPage() {
       <main className="max-w-7xl mx-auto px-6 py-8 space-y-8">
         <section>
           <div className="flex items-center justify-between mb-6">
-            <h1 className="font-heading text-2xl font-bold">Recent Designs</h1>
-            <Button variant="outline" size="sm">View All</Button>
+            <h1 className="font-heading text-2xl font-bold">Documents</h1>
+            <Link href="/write/new">
+              <Button variant="outline" size="sm">
+                <Plus size={14} />
+                New
+              </Button>
+            </Link>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {recentDesigns.map((design) => (
-              <Link key={design.id} href={`/design/${design.id}`}>
+            {recentDocs.map((doc) => (
+              <Link key={doc.id} href={`/write/${doc.id}`}>
                 <Card className="cursor-pointer hover:border-primary transition-all duration-200">
-                  <div className="aspect-video bg-surface-alt rounded-t-xl flex items-center justify-center text-muted text-sm">
-                    {design.name.charAt(0)}
+                  <div className="aspect-video bg-surface-alt rounded-t-xl flex items-center justify-center">
+                    <FileText size={32} className="text-muted" />
                   </div>
                   <CardHeader>
-                    <CardTitle className="text-sm">{design.name}</CardTitle>
-                    <p className="text-xs text-muted">Edited {design.updated}</p>
+                    <CardTitle className="text-sm">{doc.title}</CardTitle>
+                    <p className="text-xs text-muted">Edited {doc.updated}</p>
                   </CardHeader>
                 </Card>
               </Link>
             ))}
-            <Link href="/design/new">
+            <Link href="/write/new">
               <Card className="border-dashed hover:border-primary hover:bg-primary/5 transition-all duration-200 cursor-pointer h-full">
                 <CardContent className="flex flex-col items-center justify-center h-full min-h-[200px]">
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary text-2xl mb-3">
-                    +
+                    <Plus size={24} />
                   </div>
-                  <p className="text-sm font-medium text-muted">Create New Design</p>
+                  <p className="text-sm font-medium text-muted">New Document</p>
                 </CardContent>
               </Card>
             </Link>

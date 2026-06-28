@@ -14,8 +14,9 @@ export default function HomePage() {
               <span className="font-heading font-semibold text-xl">Creativa</span>
             </div>
             <nav className="hidden md:flex items-center gap-6 text-sm text-muted">
-              <Link href="#features" className="hover:text-foreground transition-colors">Features</Link>
-              <Link href="#templates" className="hover:text-foreground transition-colors">Templates</Link>
+              <Link href="/dashboard" className="hover:text-foreground transition-colors">Design</Link>
+              <Link href="/write" className="hover:text-foreground transition-colors">Write</Link>
+              <Link href="/media" className="hover:text-foreground transition-colors">Media</Link>
               <Link href="/login" className="hover:text-foreground transition-colors">Sign In</Link>
               <Button asChild>
                 <Link href="/register">Get Started Free</Link>

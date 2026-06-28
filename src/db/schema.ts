@@ -49,6 +49,29 @@ export const designs = sqliteTable("designs", {
   updatedAt: text("updated_at").notNull().default("CURRENT_TIMESTAMP"),
 });
 
+export const documents = sqliteTable("documents", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => users.id),
+  title: text("title").notNull().default("Untitled Document"),
+  content: text("content").notNull().default(""),
+  createdAt: text("created_at").notNull().default("CURRENT_TIMESTAMP"),
+  updatedAt: text("updated_at").notNull().default("CURRENT_TIMESTAMP"),
+});
+
+export const media = sqliteTable("media", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => users.id),
+  name: text("name").notNull(),
+  url: text("url").notNull(),
+  type: text("type").notNull().default("image"),
+  size: integer("size").notNull().default(0),
+  width: integer("width"),
+  height: integer("height"),
+  alt: text("alt"),
+  category: text("category").default("uncategorized"),
+  createdAt: text("created_at").notNull().default("CURRENT_TIMESTAMP"),
+});
+
 export const templates = sqliteTable("templates", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
