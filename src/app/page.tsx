@@ -18,6 +18,7 @@ export default function HomePage() {
               <Link href="/write" className="hover:text-foreground transition-colors">Write</Link>
               <Link href="/video" className="hover:text-foreground transition-colors">Video</Link>
               <Link href="/media" className="hover:text-foreground transition-colors">Media</Link>
+              <Link href="/knowledge" className="hover:text-foreground transition-colors">Knowledge</Link>
               <Link href="/login" className="hover:text-foreground transition-colors">Sign In</Link>
               <Button asChild>
                 <Link href="/register">Get Started Free</Link>

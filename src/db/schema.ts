@@ -85,6 +85,17 @@ export const videoProjects = sqliteTable("video_projects", {
   updatedAt: text("updated_at").notNull().default("CURRENT_TIMESTAMP"),
 });
 
+export const knowledgePages = sqliteTable("knowledge_pages", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => users.id),
+  title: text("title").notNull().default("Untitled"),
+  icon: text("icon").default("📄"),
+  parentId: text("parent_id"),
+  blocksJSON: text("blocks_json").notNull().default("[]"),
+  createdAt: text("created_at").notNull().default("CURRENT_TIMESTAMP"),
+  updatedAt: text("updated_at").notNull().default("CURRENT_TIMESTAMP"),
+});
+
 export const templates = sqliteTable("templates", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
