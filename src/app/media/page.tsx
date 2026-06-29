@@ -78,12 +78,9 @@ export default function MediaPage() {
             </Link>
           </div>
           <div className="flex items-center gap-3">
-            <Link href="/dashboard">
-              <Button variant="ghost" size="sm">Designs</Button>
-            </Link>
-            <Link href="/write">
-              <Button variant="ghost" size="sm">Write</Button>
-            </Link>
+            <Link href="/dashboard"><Button variant="ghost" size="sm">Design</Button></Link>
+            <Link href="/write"><Button variant="ghost" size="sm">Write</Button></Link>
+            <Link href="/video"><Button variant="ghost" size="sm">Video</Button></Link>
             <Button size="sm" onClick={() => setShowUpload(true)}>
               <Upload size={14} />
               Upload
